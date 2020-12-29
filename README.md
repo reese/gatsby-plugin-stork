@@ -11,3 +11,8 @@ To test locally, use `gatsby build && gatsby serve`.
 
 [ ] Support all of the [configuration options](https://stork-search.net/docs/config-ref) for generating indices.
 [ ] Support generating multiple named indices.
+
+## Running During Automated Builds
+
+If you use an automated build system as part of your site's deploy system, you'll need to have Stork installed as part of the build process for this plugin to run successfully.
+The docs have some instructions on [setting Stork up with Netlify](https://stork-search.net/docs/stork-and-netlify), but similar steps can be applied to any static site build runner.

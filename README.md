@@ -7,6 +7,7 @@ This plugin also automatically mounts the Stork `script` tag to the end of your 
 Note that this plugin runs after the _build_, not after the bootstrap, so the index won't be generated when running `gatsby develop`.
 To test locally, use `gatsby build && gatsby serve`.
 
-## Options
+## Future Development
 
-<!-- TODO: Add docs for `query` and `serialize`. -->
+[ ] Support all of the [configuration options](https://stork-search.net/docs/config-ref) for generating indices.
+[ ] Support generating multiple named indices.

@@ -21,7 +21,7 @@ const DEFAULT_QUERY = `
 }
 `;
 
-const DEFAULT_PUBLIC_PATH = "./public/";
+const DEFAULT_PUBLIC_PATH = "./public";
 const DEFAULT_OUTPUT_FILE_NAME = "stork.st";
 
 const DEFAULT_SERIALIZER = ({ site, allMarkdownRemark }) => {
@@ -54,7 +54,8 @@ const DEFAULT_SERIALIZER = ({ site, allMarkdownRemark }) => {
 const DEFAULTS = {
   query: DEFAULT_QUERY,
   serialize: DEFAULT_SERIALIZER,
-  output: DEFAULT_OUTPUT_FILE_NAME,
+  filename: DEFAULT_OUTPUT_FILE_NAME,
+  outputDir: DEFAULT_PUBLIC_PATH,
 };
 
 module.exports = { DEFAULTS };

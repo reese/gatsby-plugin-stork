@@ -1,24 +1,28 @@
-const path = require("path");
-
 const DEFAULT_QUERY = `
 {
-    site {
-      siteMetadata {
-        siteUrl
+  site {
+    siteMetadata {
+      siteUrl
+    }
+  }
+  allMarkdownRemark(sort: {order: DESC, fields: [frontmatter___date]}) {
+    edges {
+      node {
+        fileAbsolutePath
+        frontmatter {
+          title
+        }
+        internal {
+          content
+        }
+        fields {
+          slug
+        }
       }
     }
-    allMarkdownRemark(
-        sort: { order: DESC, fields: [frontmatter___date] },
-    ) {
-        edges {
-            node {
-                fileAbsolutePath
-                internal { content }
-                frontmatter { slug, title }
-            }
-        }
-    }
+  }
 }
+
 `;
 
 const DEFAULT_PUBLIC_PATH = "./public";
@@ -28,11 +32,12 @@ const DEFAULT_SERIALIZER = ({ site, allMarkdownRemark }) => {
   const {
     siteMetadata: { siteUrl: url },
   } = site;
-  const files = allMarkdownRemark.edges.map(
+  return allMarkdownRemark.edges.map(
     ({
       node: {
         fileAbsolutePath,
-        frontmatter: { slug, title },
+        fields: { slug },
+        frontmatter: { title },
       },
     }) => ({
       url: url + slug,
@@ -40,15 +45,6 @@ const DEFAULT_SERIALIZER = ({ site, allMarkdownRemark }) => {
       title,
     })
   );
-  return {
-    input: {
-      base_directory: "",
-      files,
-    },
-    output: {
-      filename: path.join(DEFAULT_PUBLIC_PATH, DEFAULT_OUTPUT_FILE_NAME),
-    },
-  };
 };
 
 const DEFAULTS = {

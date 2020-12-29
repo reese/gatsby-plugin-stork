@@ -1,6 +1,11 @@
-/**
- * Implement Gatsby's SSR (Server Side Rendering) APIs in this file.
- *
- * See: https://www.gatsbyjs.com/docs/ssr-apis/
- */
-// You can delete this file if you're not using it
+"use strict";
+
+const React = require("react");
+
+const onRenderBody = ({ setPostBodyComponents }) => {
+  setPostBodyComponents([
+    <script src="https://files.stork-search.net/stork.js" />,
+  ]);
+};
+
+module.exports = onRenderBody;

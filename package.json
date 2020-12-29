@@ -1,16 +1,24 @@
 {
-  "name": "gatsby-starter-plugin",
-  "version": "1.0.0",
-  "description": "A minimal boilerplate for the essential files Gatsby looks for in a plugin",
+  "name": "gatsby-plugin-stork",
+  "version": "0.1.0",
+  "description": "A Gatsby plugin for generating Stork search indexes.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "echo \"No build script setup\""
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "gatsby",
-    "gatsby-plugin"
+    "gatsby-plugin",
+    "stork",
+    "search"
   ],
-  "author": "Kyle Gill <kyle.robert.gill@gmail.com>",
-  "license": "0BSD"
+  "author": "Reese Williams <reese@reesew.io>",
+  "devDependencies": {
+    "prettier": "^2.2.1"
+  },
+  "dependencies": {
+    "@iarna/toml": "^2.2.5",
+    "graphql": "^0.11.7",
+    "tmp": "^0.2.1"
+  }
 }

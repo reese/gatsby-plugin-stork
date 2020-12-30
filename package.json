@@ -2,7 +2,12 @@
   "name": "gatsby-plugin-stork",
   "version": "0.0.1",
   "description": "A Gatsby plugin for generating Stork search indexes.",
+  "license": "MIT",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/reese/gatsby-plugin-stork.git"
+  },
   "scripts": {
     "build": "babel src --out-dir . --ignore \"**/__tests__\"",
     "prepare": "cross-env NODE_ENV=production npm run build",

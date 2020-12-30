@@ -13,8 +13,11 @@ Note that this project is still pre-1.0, and until it has some users, minor vers
 
 ## Future Development
 
-[ ] Support all of the [configuration options](https://stork-search.net/docs/config-ref) for generating indices.
-[ ] Support generating multiple named indices.
+- [ ] Support all of the [configuration options](https://stork-search.net/docs/config-ref) for generating indices.
+
+- [ ] Support generating multiple named indices.
+
+- [ ] Add option for installing Stork during CI builds
 
 ## Running During Automated Builds
 

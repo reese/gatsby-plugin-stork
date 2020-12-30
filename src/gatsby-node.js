@@ -4,9 +4,9 @@ const tmp = require("tmp");
 const pathUtil = require("path");
 const TOML = require("@iarna/toml");
 
-const { DEFAULTS } = require("./src/defaults");
-const { runQuery } = require("./src/runQuery");
-const { createSchema } = require("./src/schema");
+const { DEFAULTS } = require("./defaults");
+const { runQuery } = require("./runQuery");
+const { createSchema } = require("./schema");
 
 exports.pluginOptionsSchema = ({ Joi }) => createSchema(Joi);
 

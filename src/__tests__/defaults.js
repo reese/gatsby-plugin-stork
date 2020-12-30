@@ -1,4 +1,4 @@
-const { DEFAULTS } = require(`../../gatsby-node`);
+const { DEFAULTS } = require(`../gatsby-node`);
 const Joi = require("joi");
 const { createSchema } = require("../schema");
 

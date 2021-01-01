@@ -90,6 +90,8 @@ Note that this project is still pre-1.0, and until it has some users, minor vers
 
 - [ ] Add option for installing Stork during CI builds
 
+- [ ] Create a Gatsby starter using the plugin
+
 ## Running During Automated Builds
 
 If you use an automated build system as part of your site's deploy system, you'll need to have Stork installed as part of the build process for this plugin to run successfully.

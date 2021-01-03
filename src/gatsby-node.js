@@ -51,6 +51,16 @@ exports.onPostBuild = async ({ graphql }, pluginOptions) => {
   const tomlString = TOML.stringify(outputObject);
   await fs.writeFile(tempFileName, tomlString);
 
+  // Check if Stork is present
+  try {
+    execSync("which -s stork"); // `-s` omits output and just returns a 0 or 1 exit code
+  } catch (e) {
+    console.error(
+      "It looks like the Stork executable is not installed. For some instructions on how to install Stork, see the documentation: https://stork-search.net/docs/install"
+    );
+    throw e;
+  }
+
   // call `stork` on TOML file
   try {
     execSync(`stork --build ${tempFileName}`);

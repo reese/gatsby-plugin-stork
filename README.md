@@ -90,6 +90,8 @@ Note that this project is still pre-1.0, and until it has some users, minor vers
 
 - [ ] Add option for installing Stork during CI builds
 
+- [ ] Add React input element with necessary configuration.
+
 - [ ] Create a Gatsby starter using the plugin
 
 ## Running During Automated Builds

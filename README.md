@@ -53,9 +53,22 @@ module.exports = {
 }
 ```
 
-Note that your project will still be responsible for mounting the appropriate input tags and calling `stork.register()` in your project, but `gatsby-plugin-stork` _does_ take care of loading `stork.js` from the CDN.
+The search bar can be mounted using the `StorkInput` component:
 
-## Options
+```jsx
+import React from 'react';
+import { StorkInput } from 'gatsby-plugin-stork';
+
+export const YourSearchComponent => () => {
+  return (
+    <StorkInput filename="indexFile.st" placeholder="🔍" />
+  );
+}
+```
+
+If you want to load a [Stork Theme](https://stork-search.net/themes/), you will need to load the Stork CSS yourself.
+
+## Configuration Options
 
 ### `query`
 
@@ -84,13 +97,11 @@ Note that this project is still pre-1.0, and until it has some users, minor vers
 
 ## Future Development
 
-- [ ] Support all of the [configuration options](https://stork-search.net/docs/config-ref) for generating indices.
-
 - [ ] Support generating multiple named indices.
 
-- [ ] Add option for installing Stork during CI builds
+- [ ] Support loading CSS from CDN
 
-- [ ] Add React input element with necessary configuration.
+- [ ] Add option for installing Stork during CI builds
 
 - [ ] Create a Gatsby starter using the plugin
 

@@ -4,6 +4,7 @@
   "description": "A Gatsby plugin for generating Stork search indexes.",
   "license": "MIT",
   "main": "index.js",
+  "types": "index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/reese/gatsby-plugin-stork.git"

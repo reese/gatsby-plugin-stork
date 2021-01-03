@@ -6,7 +6,7 @@ interface StorkInputProps {
   placeholder?: string;
 }
 
-export class OutboundLink extends React.Component<
+export class StorkInput extends React.Component<
   StorkInputProps & React.HTMLProps<HTMLInputElement>,
   any
 > {}

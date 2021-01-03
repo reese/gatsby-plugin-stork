@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 /**
  * This component mounts the necessary input elements that Stork hooks into.
@@ -11,13 +11,15 @@ export const StorkInput = ({
   file = "stork.st",
   /** The placeholder for your search input. Empty by default. */
   placeholder = "",
+  className,
+  ...props
 }) => {
   useEffect(() => {
     window.stork.register(indexName, `${window.location.origin}/${file}`);
   }, []);
 
   return (
-    <div className="stork-wrapper">
+    <div className={`stork-wrapper ${className}`} {...props}>
       <input
         data-stork={indexName}
         className="stork-input"

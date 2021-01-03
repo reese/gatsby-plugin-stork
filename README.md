@@ -88,9 +88,11 @@ Note that this project is still pre-1.0, and until it has some users, minor vers
 
 - [ ] Support generating multiple named indices.
 
+- [ ] Support loading CSS from CDN
+
 - [ ] Add option for installing Stork during CI builds
 
-- [ ] Add React input element with necessary configuration.
+- [X] Add React input element with necessary configuration.
 
 - [ ] Create a Gatsby starter using the plugin
 

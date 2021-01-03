@@ -59,7 +59,7 @@ The search bar can be mounted using the `StorkInput` component:
 import React from 'react';
 import { StorkInput } from 'gatsby-plugin-stork';
 
-export const YourSearchComponent => () => {
+export const YourSearchComponent = () => {
   return (
     <StorkInput filename="indexFile.st" placeholder="🔍" />
   );

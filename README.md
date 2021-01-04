@@ -48,7 +48,6 @@ module.exports = {
             serialize: ({ allMdx }) => yourSerializationFunction(allMdx),
             filename: "indexFile.st",
         }
-        `gatsby-plugin-stork`,
     ]
 }
 ```

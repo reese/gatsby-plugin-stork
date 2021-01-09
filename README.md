@@ -70,8 +70,6 @@ export const YourSearchComponent = () => {
 }
 ```
 
-If you want to load a [Stork Theme](https://stork-search.net/themes/), you will need to load the Stork CSS yourself.
-
 ## Configuration Options
 
 ### `query`

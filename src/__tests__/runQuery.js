@@ -1,6 +1,6 @@
 const { runQuery } = require("../runQuery");
 
-describe(runQuery, () => {
+describe("runQuery", () => {
   it("throws when errors are present", () => {
     const failurePromise = Promise.resolve({
       errors: ["This is one of the errors", "Here is another"],

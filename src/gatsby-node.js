@@ -51,6 +51,18 @@ exports.onPostBuild = async ({ graphql }, pluginOptions) => {
   const tomlString = TOML.stringify(outputObject);
   await fs.writeFile(tempFileName, tomlString);
 
+  assertStorkIsInstalled();
+  buildStorkIndex(tempFileName, tomlString);
+
+  // Clean up temp file
+  removeCallback();
+};
+
+/**
+ * Checks that stork is installed on the host machine.
+ * @throws if Stork is not present.
+ */
+function assertStorkIsInstalled() {
   // Check if Stork is present
   try {
     execSync("which -s stork"); // `-s` omits output and just returns a 0 or 1 exit code
@@ -60,8 +72,13 @@ exports.onPostBuild = async ({ graphql }, pluginOptions) => {
     );
     throw e;
   }
+}
 
-  // call `stork` on TOML file
+/**
+ * Builds stork index.
+ * @throws if Stork returns a non-zero exit code.
+ */
+function buildStorkIndex(tempFileName, tomlString) {
   try {
     execSync(`stork --build ${tempFileName}`);
   } catch (e) {
@@ -69,5 +86,4 @@ exports.onPostBuild = async ({ graphql }, pluginOptions) => {
     console.error(tomlString);
     throw e;
   }
-  removeCallback();
-};
+}

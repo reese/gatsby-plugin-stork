@@ -1,3 +1,7 @@
+![Build](https://github.com/reese/gatsby-plugin-stork/workflows/Build%20and%20Test/badge.svg)
+[![npm version](https://badge.fury.io/js/gatsby-plugin-stork.svg)](https://badge.fury.io/js/gatsby-plugin-stork)
+![npm](https://img.shields.io/npm/dt/gatsby-plugin-stork)
+
 # gatsby-plugin-stork
 
 This is a Gatsby plugin for generating a search engine using [Stork](https://github.com/jameslittle230/stork).

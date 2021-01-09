@@ -52,6 +52,7 @@ const DEFAULTS = {
   serialize: DEFAULT_SERIALIZER,
   filename: DEFAULT_OUTPUT_FILE_NAME,
   outputDir: DEFAULT_PUBLIC_PATH,
+  theme: "basic",
 };
 
 module.exports = { DEFAULTS };

@@ -47,6 +47,7 @@ module.exports = {
             `,
             serialize: ({ allMdx }) => yourSerializationFunction(allMdx),
             filename: "indexFile.st",
+            theme: "dark"
         }
     ]
 }
@@ -89,6 +90,11 @@ By default, it is called `stork.st`, but you may wish to call it something else.
 The directory where the index will be stored.
 By default, it is stored in the `public` directory of your project.
 We do not recommend changing this unless you will be storing the index file somewhere else (such as your own external CDN).
+
+### `theme`
+
+The name of the [Stork theme](https://stork-search.net/themes) to install.
+Setting this option to `null` will not install a theme.
 
 ## Project Status
 

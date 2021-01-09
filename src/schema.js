@@ -17,6 +17,12 @@ const createSchema = Joi =>
     outputDir: Joi.string()
       .default(DEFAULTS.outputDir)
       .description("The directory where the index file will be stored."),
+    theme: Joi.string()
+      .valid("basic", "dark", null)
+      .default("basic")
+      .description(
+        "The name of the Stork theme to install. Can be `null` to skip installing a theme."
+      ),
   });
 
 module.exports = { createSchema };

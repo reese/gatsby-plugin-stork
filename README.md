@@ -102,16 +102,6 @@ Setting this option to `null` will not install a theme.
 
 Note that this project is still pre-1.0, and until it has some users, minor version bumps may contain breaking changes. If you are still using this pre-1.0, I recommend [pinning to a minor version](https://docs.npmjs.com/cli/v6/using-npm/semver#tilde-ranges-123-12-1).
 
-## Future Development
-
-- [ ] Support generating multiple named indices.
-
-- [ ] Support loading CSS from CDN
-
-- [ ] Add option for installing Stork during CI builds
-
-- [ ] Create a Gatsby starter using the plugin
-
 ## Running During Automated Builds
 
 If you use an automated build system as part of your site's deploy system, you'll need to have Stork installed as part of the build process for this plugin to run successfully.

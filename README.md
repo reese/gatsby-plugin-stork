@@ -75,7 +75,7 @@ export const YourSearchComponent = () => {
 ### `query`
 
 This is the query that will be run to pull in any pages you want to be indexed.
-The result of this query will be passsed to the `serialize` function.
+The result of this query will be passed to the `serialize` function.
 
 ### `serialize`
 

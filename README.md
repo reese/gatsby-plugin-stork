@@ -8,9 +8,6 @@ This is a Gatsby plugin for generating a search engine using [Stork](https://git
 This plugin automatically generates a Stork search index from your site's content and includes it in your `public` directory.
 This plugin also automatically mounts the Stork `script` tag to the end of your HTML files.
 
-Note that this plugin runs after the _build_, not after the bootstrap, so the index won't be generated when running `gatsby develop`.
-To test locally, use `gatsby build && gatsby serve`.
-
 ## Installation
 
 To install, run `npm i gatsby-plugin-stork`.
@@ -31,27 +28,21 @@ module.exports = {
     plugins: [
         {
           resolve: "gatsby-plugin-stork",
-          query: `
+          options: {
+            indexes: [
               {
-                site {
-                  siteMetadata { siteUrl }
-                }
-                allMdx(
-                  limit: 1000
-                ) {
-                  edges {
-                    node {
-                      rawBody
-                      fields { slug }
-                      frontmatter { title }
-                    }
-                  }
-                }
+                resolvers: {
+                  Mdx: {
+                    contents: node => node.rawBody,
+                    url: node => node.fields.slug,
+                    title: node => node.frontmatter.title
+                  },
+                },
+                filename: "firstIndex.st"
               }
-            `,
-            serialize: ({ allMdx }) => yourSerializationFunction(allMdx),
-            filename: "indexFile.st",
+            ],
             theme: "dark"
+          }
         }
     ]
 }
@@ -65,33 +56,41 @@ import { StorkInput } from 'gatsby-plugin-stork';
 
 export const YourSearchComponent = () => {
   return (
-    <StorkInput filename="indexFile.st" placeholder="🔍" />
+    <StorkInput filename="firstIndex.st" placeholder="🔍" />
   );
 }
 ```
 
 ## Configuration Options
 
-### `query`
+### `indexes`
 
-This is the query that will be run to pull in any pages you want to be indexed.
-The result of this query will be passed to the `serialize` function.
+This is an array of objects where each represents a separate index file.
+This object should have the following keys:
 
-### `serialize`
+#### `resolvers`
 
-This function serializes your query into a proper list of files.
-Note that this list of files will be used to create the `toml` config file that generates your Stork index, so the list of objects must conform to valid [file objects](https://stork-search.net/docs/config-ref).
+`resolvers` is an object of node types, which in turn is a series of key-value pairs where each key is the name of a [configuration option](https://stork-search.net/docs/config-ref) and the value is a function that takes in a node and returns the value for that option.
+For example, a common node type for blog posts is `MarkdownRemark`, and at a minimum, you must pass at least a `url`, `title`, and either a `path` or `contents`.
+Such a set of resolvers would look like this:
 
-### `filename`
+```js
+{
+  resolvers: {
+    MarkdownRemark: {
+      contents: node => node.rawBody,
+      url: node => node.fields.slug,
+      title: node => node.frontmatter.title
+    }
+  },
+  filename: "example.st",
+}
+```
+
+#### `filename`
 
 The name of the resulting index file.
 By default, it is called `stork.st`, but you may wish to call it something else.
-
-### `outputDir`
-
-The directory where the index will be stored.
-By default, it is stored in the `public` directory of your project.
-We do not recommend changing this unless you will be storing the index file somewhere else (such as your own external CDN).
 
 ### `theme`
 
@@ -100,7 +99,7 @@ Setting this option to `null` will not install a theme.
 
 ## Project Status
 
-Note that this project is still pre-1.0, and until it has some users, minor version bumps may contain breaking changes. If you are still using this pre-1.0, I recommend [pinning to a minor version](https://docs.npmjs.com/cli/v6/using-npm/semver#tilde-ranges-123-12-1).
+Note that this project is still pre-1.0, and minor version bumps may contain breaking changes. If you are still using this pre-1.0, I recommend [pinning to a minor version](https://docs.npmjs.com/cli/v6/using-npm/semver#tilde-ranges-123-12-1).
 
 ## Running During Automated Builds
 

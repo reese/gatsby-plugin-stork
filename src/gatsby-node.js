@@ -5,57 +5,76 @@ const pathUtil = require("path");
 const TOML = require("@iarna/toml");
 
 const { DEFAULTS } = require("./defaults");
-const { runQuery } = require("./runQuery");
 const { createSchema } = require("./schema");
 
 exports.pluginOptionsSchema = ({ Joi }) => createSchema(Joi);
 
-exports.onPostBuild = async ({ graphql }, pluginOptions) => {
-  const { query, serialize, filename, outputDir } = {
+exports.onPostBootstrap = async ({ getNodes }, pluginOptions) => {
+  assertStorkIsInstalled();
+
+  const { indexes } = {
     ...DEFAULTS,
     ...pluginOptions,
   };
-  const baseQuery = await runQuery(graphql, query);
 
-  // Serialize and write to TOML
-  const { name: tempFileName, removeCallback } = tmp.fileSync({
-    postfix: ".toml",
-  });
+  const nodes = getNodes();
 
-  console.log(`Writing temporary TOML to ${tempFileName}`);
-  const files = serialize(baseQuery);
-  const outputObject = {
-    input: {
-      base_directory: __dirname,
-      files,
-    },
-    output: {
-      filename: pathUtil.join(outputDir, filename),
-    },
-  };
+  await Promise.all(
+    indexes.map(async ({ filename, resolvers }) => {
+      const files = [];
+      nodes.forEach(node => {
+        const resolver = resolvers[node.internal.type];
+        if (!resolver) return;
 
-  // Throw if any files are invalid
-  // N.B. either path or contents is valid
-  const testForInvalidFile = ({ path, contents, url, title }) =>
-    !(path || contents) || !url || !title;
+        const resolvedValues = Object.entries(resolver).reduce(
+          (acc, [key, resolveFunc]) => {
+            acc[key] = resolveFunc(node);
+          },
+          {}
+        );
 
-  if (files.some(testForInvalidFile)) {
-    const invalidFiles = files.filter(testForInvalidFile);
-    console.error(
-      "The following node inputs were missing one or more of the required fields (path/contents, url, and title):"
-    );
-    invalidFiles.forEach(console.error);
-    throw new Error("Could not generate index from invalid files");
-  }
+        files.push(resolvedValues);
+      });
 
-  const tomlString = TOML.stringify(outputObject);
-  await fs.writeFile(tempFileName, tomlString);
+      // Serialize and write to TOML
+      const { name: tempFileName, removeCallback } = tmp.fileSync({
+        postfix: ".toml",
+      });
 
-  assertStorkIsInstalled();
-  buildStorkIndex(tempFileName, tomlString);
+      // Throw if any files are invalid
+      // N.B. either path or contents is valid
+      const testForInvalidFile = ({ path, contents, url, title }) =>
+        !(path || contents) || !url || !title;
 
-  // Clean up temp file
-  removeCallback();
+      if (files.some(testForInvalidFile)) {
+        const invalidFiles = files.filter(testForInvalidFile);
+        console.error(
+          "The following node inputs were missing one or more of the required fields (path/contents, url, and title):"
+        );
+        invalidFiles.forEach(console.error);
+        throw new Error("Could not generate index from invalid files");
+      }
+
+      console.log(`Writing temporary TOML to ${tempFileName}`);
+      const outputObject = {
+        input: {
+          base_directory: __dirname,
+          files,
+        },
+        output: {
+          filename: pathUtil.join("public", filename),
+        },
+      };
+
+      const tomlString = TOML.stringify(outputObject);
+      await fs.writeFile(tempFileName, tomlString);
+
+      buildStorkIndex(tempFileName, tomlString);
+
+      // Clean up temp file
+      removeCallback();
+    })
+  );
 };
 
 /**

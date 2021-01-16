@@ -1,58 +1,17 @@
-const DEFAULT_QUERY = `
-{
-  site {
-    siteMetadata {
-      siteUrl
-    }
-  }
-  allMarkdownRemark(sort: {order: DESC, fields: [frontmatter___date]}) {
-    edges {
-      node {
-        fileAbsolutePath
-        frontmatter {
-          title
-        }
-        internal {
-          content
-        }
-        fields {
-          slug
-        }
-      }
-    }
-  }
-}
+export const DEFAULT_OUTPUT_FILE_NAME = "stork.st";
 
-`;
-
-const DEFAULT_PUBLIC_PATH = "./public";
-const DEFAULT_OUTPUT_FILE_NAME = "stork.st";
-
-const DEFAULT_SERIALIZER = ({ site, allMarkdownRemark }) => {
-  const {
-    siteMetadata: { siteUrl: url },
-  } = site;
-  return allMarkdownRemark.edges.map(
-    ({
-      node: {
-        fileAbsolutePath,
-        fields: { slug },
-        frontmatter: { title },
+export const DEFAULTS = {
+  indexes: [
+    {
+      filename: DEFAULT_OUTPUT_FILE_NAME,
+      resolvers: {
+        MarkdownRemark: {
+          url: ({ fields: { slug } }) => slug,
+          path: ({ fileAbsolutePath }) => fileAbsolutePath,
+          title: ({ frontmatter: { title } }) => title,
+        },
       },
-    }) => ({
-      url: url + slug,
-      path: fileAbsolutePath,
-      title,
-    })
-  );
-};
-
-const DEFAULTS = {
-  query: DEFAULT_QUERY,
-  serialize: DEFAULT_SERIALIZER,
-  filename: DEFAULT_OUTPUT_FILE_NAME,
-  outputDir: DEFAULT_PUBLIC_PATH,
+    },
+  ],
   theme: "basic",
 };
-
-module.exports = { DEFAULTS };

@@ -20,7 +20,8 @@
   },
   "rules": {
     "valid-jsdoc": "off",
-    "react/prop-types": "off"
+    "react/prop-types": "off",
+    "jest/expect-expect": "off"
   },
   "settings": {
     "react": {

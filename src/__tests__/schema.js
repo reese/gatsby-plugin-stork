@@ -17,11 +17,9 @@ describe("Schema validation", () => {
         {
           resolvers: {
             MarkdownRemark: {
-              resolvers: {
-                title: _node => "foo",
-                url: _node => "bar",
-                contents: _node => "baz",
-              },
+              title: _node => "foo",
+              url: _node => "bar",
+              contents: _node => "baz",
             },
           },
           filename: "foo.st",

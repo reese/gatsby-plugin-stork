@@ -15,11 +15,13 @@ describe("Schema validation", () => {
     const options = {
       indexes: [
         {
-          MarkdownRemark: {
-            resolvers: {
-              title: _node => "foo",
-              url: _node => "bar",
-              contents: _node => "baz",
+          resolvers: {
+            MarkdownRemark: {
+              resolvers: {
+                title: _node => "foo",
+                url: _node => "bar",
+                contents: _node => "baz",
+              },
             },
           },
           filename: "foo.st",

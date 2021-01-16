@@ -25,26 +25,22 @@ export const createSchema = Joi =>
       "any.unknown": "Overwriting the output directory is no longer supported.",
     }),
     indexes: Joi.array().items(
-      Joi.object()
-        .pattern(
+      Joi.object({
+        filename: Joi.string()
+          .default(DEFAULT_OUTPUT_FILE_NAME)
+          .description("The file name of the generated index."),
+        resolvers: Joi.object().pattern(
           /^/,
           Joi.object({
-            resolvers: Joi.object({
-              title: Joi.function().arity(1).required(),
-              url: Joi.function().arity(1).required(),
-              path: Joi.function().arity(1),
-              contents: Joi.function().arity(1),
-            })
-              .or("path", "contents")
-              .required(),
+            title: Joi.function().arity(1).required(),
+            url: Joi.function().arity(1).required(),
+            path: Joi.function().arity(1),
+            contents: Joi.function().arity(1),
           })
-        )
-        .append({
-          filename: Joi.string()
-            .default(DEFAULT_OUTPUT_FILE_NAME)
+            .or("path", "contents")
             .required()
-            .description("The file name of the generated index."),
-        })
+        ),
+      })
     ),
     theme: Joi.string()
       .valid("basic", "dark", null)

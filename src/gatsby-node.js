@@ -9,7 +9,7 @@ const { createSchema } = require("./schema");
 
 exports.pluginOptionsSchema = ({ Joi }) => createSchema(Joi);
 
-exports.onPostBuild = async ({ getNodes }, pluginOptions) => {
+exports.onPostBootstrap = async ({ getNodes }, pluginOptions) => {
   assertStorkIsInstalled();
 
   const { indexes } = {
@@ -20,7 +20,7 @@ exports.onPostBuild = async ({ getNodes }, pluginOptions) => {
   const nodes = getNodes();
 
   await Promise.all(
-    indexes.map(async ({ filename, ...resolvers }) => {
+    indexes.map(async ({ filename, resolvers }) => {
       const files = [];
       nodes.forEach(node => {
         const resolver = resolvers[node.internal.type];

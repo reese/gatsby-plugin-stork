@@ -1,22 +1,48 @@
-const { DEFAULTS } = require("./defaults");
-
-const createSchema = Joi =>
+export const createSchema = Joi =>
   Joi.object({
-    query: Joi.string()
-      .default(DEFAULTS.query)
-      .description("The GraphQL query for all nodes in your index."),
-    serialize: Joi.function()
-      .arity(1)
-      .default(DEFAULTS.serialize)
-      .description(
-        "This function serializes your query result into a list of files with the appropriate properties."
-      ),
+    // TODO: Remove this in next version
+    query: Joi.string().forbidden().messages({
+      "any.unknown":
+        "The query field is deprecated, use `indexes#resolvers` instead.",
+    }),
+    // TODO: Remove this in next version
+    serialize: Joi.function().arity(1).forbidden().messages({
+      "any.unknown":
+        "The serialize field is deprecated, use `indexes#resolvers` instead.",
+    }),
+    // TODO: Remove this in next version
     filename: Joi.string()
-      .default(DEFAULTS.filename)
+      .forbidden()
+      .messages({
+        "any.unknown":
+          "The filename root option is deprecated, use `indexes#filename` instead.",
+      })
       .description("The name of your index file."),
-    outputDir: Joi.string()
-      .default(DEFAULTS.outputDir)
-      .description("The directory where the index file will be stored."),
+    // TODO: Remove this in next version
+    outputDir: Joi.string().forbidden().messages({
+      "any.unknown": "Overwriting the output directory is no longer supported.",
+    }),
+    indexes: Joi.array().items(
+      Joi.object()
+        .pattern(
+          /^/,
+          Joi.object({
+            resolvers: Joi.object({
+              title: Joi.function().arity(1).required(),
+              url: Joi.function().arity(1).required(),
+              path: Joi.function().arity(1),
+              contents: Joi.function().arity(1),
+            })
+              .or("path", "contents")
+              .required(),
+          })
+        )
+        .append({
+          filename: Joi.string()
+            .required()
+            .description("The file name of the generated index."),
+        })
+    ),
     theme: Joi.string()
       .valid("basic", "dark", null)
       .default("basic")
@@ -24,5 +50,3 @@ const createSchema = Joi =>
         "The name of the Stork theme to install. Can be `null` to skip installing a theme."
       ),
   });
-
-module.exports = { createSchema };

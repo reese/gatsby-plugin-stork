@@ -1,6 +1,6 @@
-const DEFAULT_OUTPUT_FILE_NAME = "stork.st";
+export const DEFAULT_OUTPUT_FILE_NAME = "stork.st";
 
-const DEFAULTS = {
+export const DEFAULTS = {
   indexes: [
     {
       MarkdownRemark: {
@@ -13,5 +13,3 @@ const DEFAULTS = {
   ],
   theme: "basic",
 };
-
-module.exports = { DEFAULTS };

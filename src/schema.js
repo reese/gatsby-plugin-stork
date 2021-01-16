@@ -1,3 +1,5 @@
+import { DEFAULT_OUTPUT_FILE_NAME } from "./defaults";
+
 export const createSchema = Joi =>
   Joi.object({
     // TODO: Remove this in next version
@@ -39,6 +41,7 @@ export const createSchema = Joi =>
         )
         .append({
           filename: Joi.string()
+            .default(DEFAULT_OUTPUT_FILE_NAME)
             .required()
             .description("The file name of the generated index."),
         })

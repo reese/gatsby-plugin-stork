@@ -1,6 +1,5 @@
 const { onPostBootstrap } = require("../gatsby-node.js");
 const path = require("path");
-const { DEFAULTS } = require("../defaults");
 
 describe("onPostBootstrap", () => {
   it("correctly builds with default inputs", async () => {
@@ -31,6 +30,6 @@ describe("onPostBootstrap", () => {
       },
     ];
 
-    await onPostBootstrap({ getNodes }, DEFAULTS);
+    await onPostBootstrap({ getNodes }, {});
   });
 });

@@ -31,6 +31,6 @@ describe("onPostBootstrap", () => {
       },
     ];
 
-    await onPostBootstrap({ getNodes }, DEFAULTS);
+    await onPostBootstrap({ getNodes }, {});
   });
 });

@@ -4,7 +4,7 @@ const tmp = require("tmp");
 const pathUtil = require("path");
 const TOML = require("@iarna/toml");
 
-const { DEFAULTS } = require("./defaults");
+const { DEFAULTS, DEFAULT_OUTPUT_FILE_NAME } = require("./defaults");
 const { createSchema } = require("./schema");
 
 exports.pluginOptionsSchema = ({ Joi }) => createSchema(Joi);
@@ -20,7 +20,7 @@ exports.onPostBootstrap = async ({ getNodes }, pluginOptions) => {
   const nodes = getNodes();
 
   await Promise.all(
-    indexes.map(async ({ filename, resolvers }) => {
+    indexes.map(async ({ filename = DEFAULT_OUTPUT_FILE_NAME, resolvers }) => {
       const files = [];
       nodes.forEach(node => {
         const resolver = resolvers[node.internal.type];

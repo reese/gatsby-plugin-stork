@@ -26,12 +26,10 @@ exports.onPostBootstrap = async ({ getNodes }, pluginOptions) => {
         const resolver = resolvers[node.internal.type];
         if (!resolver) return;
 
-        const resolvedValues = Object.entries(resolver).reduce(
-          (acc, [key, resolveFunc]) => {
-            acc[key] = resolveFunc(node);
-          },
-          {}
-        );
+        const resolvedValues = {};
+        Object.entries(resolver).forEach(([key, resolveFunc]) => {
+          resolvedValues[key] = resolveFunc(node);
+        });
 
         files.push(resolvedValues);
       });

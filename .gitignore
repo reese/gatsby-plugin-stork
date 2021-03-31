@@ -56,7 +56,7 @@ typings/
 
 # gatsby files
 .cache/
-public
+public/stork.st
 
 # Mac files
 .DS_Store

@@ -105,3 +105,5 @@ Note that this project is still pre-1.0, and minor version bumps may contain bre
 
 If you use an automated build system as part of your site's deploy system, you'll need to have Stork installed as part of the build process for this plugin to run successfully.
 The docs have some instructions on [setting Stork up with Netlify](https://stork-search.net/docs/stork-and-netlify), but similar steps can be applied to any static site build runner.
+
+This plugin will by default run the `stork` executable, but you can also supply a path to the executable with the `GATSBY_STORK_EXECUTABLE_PATH` environment variable to run Stork from a different installation.

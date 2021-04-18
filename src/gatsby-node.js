@@ -80,6 +80,12 @@ exports.onPostBootstrap = async ({ getNodes }, pluginOptions) => {
  * @throws if Stork is not present.
  */
 function assertStorkIsInstalled() {
+  if (process.env.GATSBY_STORK_EXECUTABLE_PATH) {
+    // if the user provides an executable path, we trust
+    // that it's properly installed there
+    return;
+  }
+
   // Check if Stork is present
   try {
     execSync("which -s stork"); // `-s` omits output and just returns a 0 or 1 exit code
@@ -97,7 +103,11 @@ function assertStorkIsInstalled() {
  */
 function buildStorkIndex(tempFileName, tomlString) {
   try {
-    execSync(`stork --build ${tempFileName}`);
+    execSync(
+      `${
+        process.env.GATSBY_STORK_EXECUTABLE_PATH || "stork"
+      } --build ${tempFileName}`
+    );
   } catch (e) {
     console.error("Could not generate index for generated TOML file:");
     console.error(tomlString);

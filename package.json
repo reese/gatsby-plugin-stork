@@ -1,6 +1,6 @@
 {
   "name": "gatsby-plugin-stork",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "A Gatsby plugin for generating Stork search indexes.",
   "license": "MIT",
   "main": "index.js",

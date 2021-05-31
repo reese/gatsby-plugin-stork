@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "@iarna/toml": "^2.2.5",
-    "graphql": "^0.11.7",
+    "graphql": "^14.0",
     "is-ci": "^2.0.0",
     "tmp": "^0.2.1"
   },

@@ -67,3 +67,7 @@ yarn-error.log
 .pnp.js
 # Yarn Integrity file
 .yarn-integrity
+
+# Ignore package-lock, we don't want dependents
+# to be forced to use our lock file
+package-lock.json
